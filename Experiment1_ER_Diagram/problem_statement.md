@@ -13,7 +13,7 @@ The purpose of this workshop is to gain hands-on experience in designing ER diag
 ### 🔹 Scenario 1: University Database
 Design a database to manage students, instructors, programs, courses, and student enrollments. Include prerequisites for courses.
 
-*User Requirements:*
+**User Requirements:**
 - Academic programs grouped under departments.
 - Students have admission number, name, DOB, contact info.
 - Instructors with staff number, contact info, etc.
@@ -26,7 +26,7 @@ Design a database to manage students, instructors, programs, courses, and studen
 ### 🔹 Scenario 2: Hospital Database
 Design a database for patient management, appointments, medical records, and billing.
 
-*User Requirements:*
+**User Requirements:**
 - Patient details including contact and insurance.
 - Doctors and their departments, contact info, specialization.
 - Appointments with reason, time, patient-doctor link.
@@ -45,60 +45,111 @@ Design a database for patient management, appointments, medical records, and bil
    - Why you chose the entities and relationships.
    - How you modeled prerequisites or billing.
 
-# ER Diagram Submission - Student Name
-# Name: Keerthana S
-# Reg.no:212223240070 
-# Scenario Chosen:
+# ER Diagram Submission - Danica Christa
+## Scenario Chosen:
 University 
+
 ## ER Diagram:
-![image](https://github.com/user-attachments/assets/9177c06b-a61a-4691-afaa-ecdd1e051a16)
+![image](https://github.com/user-attachments/assets/003025b6-ccdd-4eb1-99e9-83d0be39f3b7)
 
-## Entities and Attributes:
 
-# Students:
-Attributes: StudentID, FirstName, LastName, DateOfBirth, Email, PhoneNumber, EnrollmentDate, DepartmentID.
-# Faculty:
-Attributes: FacultyID, FirstName, LastName, Email, PhoneNumber, HireDate, DepartmentID.
-# Department:
-Attributes: DepartmentID, DepartmentName, Location.
-# Course:
-Attributes: CourseID, CourseName, CourseCode, Credits, DepartmentID.
-# Enrollment:
-Attributes: EnrollmentID, StudentID, CourseID, EnrollmentDate, Grade.
-# Class:
-Attributes: ClassID, CourseID, FacultyID, Semester, Year, Schedule.
-# Advising:
-Attributes: AdvisingID, StudentID, FacultyID, AdvisingDate.
+Entities and Attributes
+## STUDENT
+Attributes:
 
-## Relationships and Constraints:
+admission number
 
-## Student–Advising–Faculty:
-Relationship: Advises Cardinality: Many-to-Many (each student can have multiple advisors, each faculty can advise multiple students) Participation: Total on Advising
-## Student–Enrollment–Course:
-Relationship: Enrolled in Cardinality: Many-to-Many Participation: Total on Enrollment
-## Course–Class–Faculty:
-Relationship: Teaches Cardinality: Many-to-Many (each course can be taught in multiple classes, each faculty can teach multiple classes)
-## Course–Department:
-Relationship: Offered by Cardinality: Many-to-One (Each course belongs to one department)
-## Student–Department:
-Relationship: Belongs to Cardinality: Many-to-One
-## Faculty–Department:
-Relationship: Belongs to Cardinality: Many-to-One
-## Class–Course:
-Relationship: Includes Cardinality: Many-to-One
-## Enrollment–Class:
-Relationship: Taught by Not standard; assumes indirect mapping via faculty
+full name
 
-## Extension (Prerequisite / Billing):
-## Prerequisite Modeling:
-Could be modeled with a recursive relationship on Course: Relationship: Requires Cardinality: Many-to-Many (a course can have many prerequisites and be a prerequisite for many others)
+date of birth
 
-## Design Choices:
-Use of separate entities for Advising, Enrollment, and Class helps normalize many-to-many relationships and maintain relational integrity. Department as a central entity provides a logical way to group students, faculty, and courses.
+contact information:
 
-Class entity includes scheduling details, separating course content from the time/location of delivery.
+email
 
-The design is modular and supports easy extension for future requirements like prerequisites, billing, or attendance.
+phone number
+
+## INSTRUCTOR
+Attributes:
+
+unique staff number
+
+name
+
+contact information:
+
+email
+
+phone number
+
+## COURSES
+Attributes:
+
+course number
+
+name
+
+number of credits/units
+
+## PROGRAMS
+Attributes:
+
+unique identifier
+
+program name
+
+the governing department
+
+## PREREQUISITE
+Attributes:
+
+PrerequisiteID
+
+Course_ID
+
+Relationships and Constraints
+## enrolls
+Entities Involved: STUDENT ↔ COURSES
+
+Cardinality: Many-to-Many
+
+Participation: Partial
+
+## taught
+Entities Involved: INSTRUCTOR ↔ COURSES
+
+Cardinality: Many-to-Many
+
+Participation: Partial
+
+## offers
+Entities Involved: PROGRAMS → COURSES
+
+Cardinality: One-to-Many (One program offers many courses)
+
+Participation: Total on COURSES side
+
+## to check
+Entities Involved: PREREQUISITE → COURSES
+
+Cardinality: Many-to-One
+
+Participation: Partial
+
+Extension: Prerequisite
+The PREREQUISITE entity models prerequisites separately instead of using a recursive relationship on COURSES.
+
+This allows each course to reference multiple prerequisites and enables storing extra metadata in the future (e.g., minimum grade required, reason for prerequisite).
+
+Design Choices
+Separate Entities: Each core concept (Student, Instructor, Program, Course) is modeled independently to reflect real-world roles clearly.
+
+Composite Attribute (Contact Information): Groups email and phone logically, avoiding data repetition.
+
+Separate PREREQUISITE Entity: Improves clarity and flexibility, supports expansion (e.g., allowing prerequisites for programs or different course levels).
+
+Clear Relationship Naming: Relationships like enrolls, taught, and offers make the model easier to understand. 
 
 ## RESULT
-Thus, the Entity-Relationship (ER) Diagram have been created successfully.
+
+Successfully designed an ER diagram for the University Academic System with entities, relationships, constraints, and optional enhancements to support real-world academic operations.
